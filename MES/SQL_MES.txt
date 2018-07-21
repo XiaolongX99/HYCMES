@@ -1,0 +1,258 @@
+use MES2018
+GO
+
+--时间轴--
+DECLARE @st time
+DECLARE @et time
+DECLARE @n int
+set @st='00:00'
+set @n=0
+while @n<1440
+begin
+set @et=dateadd(minute,@n,@st)
+insert into p_admin_axistime values(@et,1)
+select @n=@n+1
+end
+
+--日期轴--
+DECLARE @sd DATE
+DECLARE @ed DATE
+DECLARE @n int
+set @sd='2018-01-01'
+set @n=0
+while @n<1000
+begin
+set @ed=dateadd(d,@n,@sd)
+insert into p_admin_axisdate values(@ed,datepart(weekday,@ed)-1,month(@ed),year(@ed))
+select @n=@n+1
+end
+
+--工时修订解发器
+create TRIGGER t_pcode on p_pdm_pcode
+after insert,UPDATE
+AS
+declare @sad int,@pcd varchar(40)
+set @pcd=(select pcode from inserted)
+set @sad=(select case when max(states) is null then 1 else max(states)+1 end from p_pdm_pcoderev where pcode=@pcd)
+insert into  p_pdm_pcoderev
+select pcode,pname,labor,null,@sad,updatetime,null from inserted 
+
+
+--MES报表刷新--
+create Proc [dbo].[P_ReportSum]  
+AS
+BEGIN
+
+--begin transaction innerTrans 
+
+Declare @Isd datetime
+Declare @Ied datetime
+set @Isd=convert(varchar(20),getdate()-3 ,23)
+set @Ied=convert(varchar(20),getdate() ,23)
+
+delete from p_mes_sumreport where WorkingDate between @Isd and @Ied
+insert into p_mes_sumreport
+select WorkingDate,STO.PL,STO.Cell,STO.Cell as Operation,StandardQty as MPSQty,CompleteQty,case when PQ is null then Members else PQ end as PQ,OutputHR,case when ATH is null then WorkingHours else ATH end as ATH,case when NWK is null then 0 else NWK end as NWK,case when NWK is null then 1 else 1-NWK/nullif(case when ATH is null then WorkingHours else ATH end,0) end as URT,
+case when NWK is null then OutputHR/nullif(case when ATH is null then WorkingHours else ATH end,0) else OutputHR/nullif(case when ATH is null then WorkingHours else ATH end-NWK,0) end as Efficiency,OutputHR/nullif(case when ATH is null then WorkingHours else ATH end,0) as Productivity,CompleteQty/nullif(StandardQty,0) as AchievingRate,cast(OutputHR/nullif(ST,0) as numeric(12,0)) as StandardProductQty,
+case when Members is null then 0 else Members end as Members,case when WorkingHours IS NULL then 0 else WorkingHours end as WorkingHours,cast(OutputHR/nullif(ST,0)/nullif(case when ATH is null then WorkingHours else ATH end,0) as numeric(12,2)) as UPPH,Item,PPM,null as FCY
+from(select WorkingDate,case when rtrim(ltrim(a.Cell))='样品线' then '工程' else a.PL end as PL,MES2017.dbo.F_Gb2Big(rtrim(ltrim(a.Cell)),2) as Cell,sum(CompleteQty*Labor*(case when Port is null or PortType=0 then 1 else Port end)) as OutputHR,sum(CompleteQty*(case when Port is null or PortType=0 then 1 else Port end)) as CompleteQty,sum(CompleteLot) as CompleteLot from MES2017.dbo.SFMTransferHYC a
+left join MES2017.dbo.V_ST1 b on a.Item=b.Item and a.Operation=b.Operation 
+left join MES2017.dbo.SFMBOMPort c on a.Item=c.Item
+where States>0 and a.Cell<>'PLC' and cell is not null and WorkingDate between @Isd and @Ied group by WorkingDate,a.PL,rtrim(ltrim(a.Cell)))STO
+left join(select Date,MES2017.dbo.F_Gb2Big(GroupCode,2) as GroupCode,sum(WorkingHours)/60 as ATH,count(OperatorID) as PQ from MES2017.dbo.SFMWorkingHour where Date between @Isd and @Ied group by Date,GroupCode)HR on STO.Cell=HR.GroupCode and HR.Date=WorkingDate
+left join(select Date,MES2017.dbo.F_Gb2Big(Cell,2) as Cell,sum(Qty)/60 as NWK from MES2017.dbo.SLGRCI where Date between @Isd and @Ied group by Date,Cell)NW on STO.Cell=NW.Cell and NW.Date=WorkingDate 
+left join MES2017.dbo.V_MPS1 m on STO.Cell=m.Cell and WorkingDate=m.ProductionDate
+left join MES2017.dbo.SFMAHP p on STO.Cell=p.Cell and WorkingDate=p.Hdate and STO.PL=p.PL
+left join MES2017.dbo.V_NWH h on STO.Cell=h.Cell and WorkingDate=h.Date
+left join MES2017.dbo.V_FQC q on STO.Cell=q.Cell and WorkingDate=q.QDate
+left join(select distinct MES2017.dbo.F_Gb2Big(Cell,2) as Cell,ST from MES2017.dbo.SLGST left join MES2017.dbo.SLGMaster on Pcode=Operation where States=1 )ST on STO.Cell=ST.Cell 
+UNION(
+select WorkingDate,STO.PL,STO.Cell,STO.Cell as Operation,StandardQty as MPSQty,CompleteQty,case when PQ is null then Members else PQ end as PQ,OutputHR,case when ATH is null then WorkingHours else ATH end as ATH,case when NWK is null then 0 else NWK end as NWK,case when NWK is null then 1 else 1-NWK/nullif(case when ATH is null then WorkingHours else ATH end,0) end as URT,
+case when NWK is null then OutputHR/nullif(case when ATH is null then WorkingHours else ATH end,0) else OutputHR/nullif(case when ATH is null then WorkingHours else ATH end-NWK,0) end as Efficiency,OutputHR/nullif(case when ATH is null then WorkingHours else ATH end,0) as Productivity,CompleteQty/nullif(StandardQty,0) as AchievingRate,cast(OutputHR/nullif(ST,0) as numeric(12,0)) as StandardProductQty,
+case when Members is null then 0 else Members end as Members,case when WorkingHours IS NULL then 0 else WorkingHours end as WorkingHours,cast(OutputHR/nullif(ST,0)/nullif(case when ATH is null then WorkingHours else ATH end,0) as numeric(12,2)) as UPPH,Item,null as PPM,null as FCY
+From (select WorkingDate,PL,Cell,sum(OutputHR) as OutputHR,sum(CompleteQty) as CompleteQty,sum(CompleteLot) as CompleteLot,sum(ATH) as ATH,Count(Operator) as PQ 
+from (select WorkingDate,a.PL,rtrim(ltrim(a.Cell)) as Cell,Operator,sum(CompleteQty*Labor) as OutputHR,sum(CompleteQty) as CompleteQty,sum(CompleteLot) as CompleteLot
+from MES2017.dbo.SFMTransferHYC a
+left join MES2017.dbo.V_ST1 b on a.Item=b.Item and a.Operation=b.Operation
+where States>0 and a.Cell='PLC' and WorkingDate between @Isd and @Ied Group by WorkingDate,a.PL,rtrim(ltrim(a.Cell)),Operator)SO
+left join(select Date,OperatorID,sum(WorkingHours)/60 as ATH from MES2017.dbo.SFMWorkingHour group by Date,OperatorID)HR on Operator=HR.OperatorID and HR.Date=WorkingDate
+Group by WorkingDate,PL,Cell)STO
+left join(select Date,Cell,sum(Qty)/60 as NWK from MES2017.dbo.SLGRCI group by Date,Cell)NW on STO.Cell=NW.Cell and NW.Date=WorkingDate
+left join MES2017.dbo.V_MPS1 m on STO.Cell=m.Cell and ProductionDate=WorkingDate
+left join MES2017.dbo.SFMAHP s on STO.Cell=s.Cell and Hdate=WorkingDate and STO.PL=s.PL
+left join MES2017.dbo.V_NWH h on STO.Cell=h.Cell and WorkingDate=h.Date
+left join(select distinct Cell,ST from MES2017.dbo.SLGST left join MES2017.dbo.SLGMaster on Pcode=Operation where States=1 )ST on STO.Cell=ST.Cell 
+)
+
+--rollback transaction innerTrans
+
+end
+
+
+
+--FQC(TBD)--
+Alter view v_FQC
+as
+select WorkingDate as Qdate,PL,Cell,Operation,sum(cast(FQCQty as numeric(12,2))) as FQCQty,sum(cast(SFMFQC.FailQty as numeric(12,2))) as FailQty,
+cast(sum(cast(SFMFQC.FailQty as numeric(12,2)))*1000000/nullif(sum(cast(FQCQty as numeric(12,2))),0) as int) as PPM
+from SFMTransferHYC a left join SFMFQC on a.id=Trid group by WorkingDate,PL,Cell,Operation
+
+--出入库(TBD)
+CREATE TRIGGER T_wmstransaction on p_wms_transaction 
+after insert,UPDATE
+as
+delete from p_wms_storage where item=new.item and lot=new.lot and warehouse_id=new.warehouse_id and locator_id=new.locator_id
+insert into p_wms_storage 
+select item,lot,sum(IO*qty) as PQ,sum(IO*capacity) as Capacity,max(updatetime) as Upd,locator_id,warehouse_id from p_wms_transaction  group by item,lot,warehouse_id,locator_id Having item=new.item and lot=new.lot and warehouse_id=new.warehouse_id and locator_id=new.locator_id
+
+
+/*数据同步
+
+
+--用户--
+insert into auth_user
+select * from MESHYC.dbo.auth_user where username<>'95324'
+
+--角色--
+insert into auth_group
+select name from MESHYC.dbo.auth_group where name not in('Editors','Moderators')
+
+--模组--
+insert into p_admin_module
+select code,name,url,level,updatetime,parent_id from MESHYC.dbo.p_admin_module
+
+--部门
+insert into p_admin_department
+select code,name,category,createdate,updatetime,null as parent_id,responsibility_id from MESHYC.dbo.p_admin_department
+update a set a.parent_id=b.parent_id from p_admin_department a
+left join MESHYC.dbo.p_admin_department b on a.code=b.code
+
+--日期轴--
+insert into p_admin_axisdate
+select * from MESHYC.dbo.p_admin_axisdate
+
+----时间轴--
+insert into p_admin_axistime
+select * from MESHYC.dbo.p_admin_axistime
+
+--组织--
+insert into p_admin_organization
+select * from MESHYC.dbo.p_admin_organization
+
+--需要本地操作, 部门目标
+--SET IDENTITY_INSERT  p_mes_deptarget  ON  
+--truncate table p_mes_deptarget  
+insert into p_mes_deptarget (tcode,tvalue,tucl,tlcl,updatetime,updatename,dep_id )
+select tcode,tvalue,tucl,tlcl,updatetime,updatename,dep_id from MESHYC.dbo.p_mes_deptarget
+
+--MES报表
+insert into p_mes_sumreport
+SELECT [WorkingDate]
+      ,[PL]
+      ,[Cell]
+      ,[Operation]
+      ,[MPSQty]
+      ,[CompleteQty]
+      ,[PQ]
+      ,[OutputHR]
+      ,[ATH]
+      ,[NWK]
+      ,[URT]
+      ,[Efficiency]
+      ,[Productivity]
+      ,[AchievingRate]
+      ,[StandardProductQty]
+      ,[Members]
+      ,[WorkingHours]
+      ,[UPPH]
+      ,[Item]
+      ,[PPM]
+      ,[FCY]
+FROM MESDEV.[dbo].[p_mes_sumreport]
+
+--KPI--
+insert into p_opm_kpi
+select KPI,kpidesc,releasedate,updatetime from MESHYC.dbo.p_opm_kpi
+
+insert into p_opm_index
+select KPI,kcode,Kdescription,kmax,kmin,kbase,kcriteria,kgrade,kjudge,revision,states,updatetime from MESHYC.dbo.p_opm_index
+
+insert into p_opm_slg
+select SLP,slpdesc,releasedate,updatetime from MESHYC.dbo.p_opm_slg
+
+insert into p_opm_slgframe
+select SLP,level,UPPH,Grade,hourlyrate,compensate,incentivedist,incentivestr,dayhours,monthdays,basesalary,revision,states,updatetime from MESHYC.dbo.p_opm_slgframe
+
+insert into p_opm_slgmaster
+select YEA,MON,states,updatetime,dep_id from MESHYC.dbo.p_opm_slgmaster
+
+--产品族--
+insert into p_pdm_productgroup
+select * from MESHYC.dbo.p_pdm_productgroup
+
+--产品线--
+insert into p_pdm_productline
+select * from MESHYC.dbo.p_pdm_productline
+
+--产品树--
+insert into p_pdm_producttree
+select * from MESHYC.dbo.p_pdm_producttree
+
+--工作中心--
+insert into p_pdm_operation
+select opcode,opname,category,updatetime,PCE_id,null from MESHYC.dbo.p_pdm_operation
+update a set a.parent_id=b.parent_id from p_pdm_operation a left join MESHYC.dbo.p_pdm_operation b on a.opcode=b.opcode
+
+--作业--
+insert into p_pdm_process
+select * from MESHYC.dbo.p_pdm_process
+
+--闲置代码--
+insert into p_opm_idlecode
+select * from MESHYC.dbo.p_opm_idlecode
+
+--岗位技能--
+insert into p_opm_skill
+select * from MESHYC.dbo.p_opm_skill
+
+--人员群组--
+insert into p_opm_group
+select * from MESHYC.dbo.p_opm_group
+
+--制程参数--
+insert into p_pdm_parameter
+select parameter,spec,pmproperty,updatetime,process_id from MESDEV.dbo.p_pdm_parameter
+
+
+--产品参数--
+insert into p_pdm_itemparameter
+select item,spec,UCL,CL,LCL,updatetime,updatename,parameter_id from MESHYC.dbo.p_pdm_itemparameter
+
+--产品线-工作中心
+insert into p_pdm_productline_operation
+select productline_id,operation_id from MESHYC.dbo.p_pdm_productline_operation 
+
+--人员群组Cell--
+insert into p_opm_group_cell
+select group_id,department_id from MESHYC.dbo.p_opm_group_cell
+
+--人员组织--
+insert into p_opm_org
+select * from MESHYC.dbo.p_opm_org
+
+--制程--
+insert into p_pdm_pcode
+select * from MESHYC.dbo.p_pdm_pcode
+
+--产线工作中心--
+insert into p_pdm_productline_operation
+select productline_id,operation_id from MESHYC.dbo.p_pdm_productline_operation
+
+insert into p_pdm_itempcode
+select item,step,updatetime,updatename,pcode_id from MESHYC.dbo.p_pdm_itempcode
+
+--失效模式--
+insert into p_sfm_modelfail
+select * from MESDEV.dbo.p_sfm_modelfail
+
+*/

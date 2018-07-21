@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if IE 9]><html class="ie9 no-focus"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-focus"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title> HYC | 亿源通光电科技 </title>
+        <meta name="description" content="OneUI - Admin Dashboard Template & UI Framework">
+        <meta name="author" content="XiaolongX">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+        <!-- Icons -->
+        <link rel="shortcut icon" href="{% static "img/favicons/hyc.ico" %}">
+        <!-- Page JS Plugins CSS -->
+        <link rel="stylesheet" href="{% static "js/plugins/slick/slick.min.css" %}">
+        <link rel="stylesheet" href="{% static "js/plugins/slick/slick-theme.min.css" %}">
+		<link rel="stylesheet" href="{% static "js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css" %}">
+        <link rel="stylesheet" href="{% static "js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" %}">
+        <link rel="stylesheet" href="{% static "js/plugins/select2/select2.min.css" %}">
+        <link rel="stylesheet" href="{% static "js/plugins/select2/select2-bootstrap.css" %}">
+        <link rel="stylesheet" href="{% static "js/plugins/dropzonejs/dropzone.min.css" %}">
+        <link rel="stylesheet" href="{% static "js/plugins/jquery-tags-input/jquery.tagsinput.min.css" %}">
+        <!-- OneUI CSS framework -->
+        <link rel="stylesheet" id="css-main" href="{% static "css/oneui.css" %}">
+        <!-- END Stylesheets -->
+        <!-- Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+        <script src="{% static "js/core/jquery.min.js" %}"></script>
+        <script src="{% static "js/core/bootstrap.min.js" %}"></script>
+        <script src="{% static "js/core/jquery.slimscroll.min.js" %}"></script>
+        <script src="{% static "js/core/jquery.scrollLock.min.js" %}"></script>
+        <script src="{% static "js/core/jquery.appear.min.js" %}"></script>
+        <script src="{% static "js/core/jquery.countTo.min.js" %}"></script>
+        <script src="{% static "js/core/jquery.placeholder.min.js" %}"></script>
+        <script src="{% static "js/core/js.cookie.min.js" %}"></script>
+        <script src="{% static "js/app.js" %}"></script>
+        <script src="{% static "js/baseform.js" %}"></script>
+        <script src="{% static "js/core/jQuery.print.min.js" %}"></script>
+        <script src="{% static "js/core/JsBarcode.all.js" %}"></script>
+
+        <!-- Page Plugins -->       
+        <script src="{% static "js/plugins/slick/slick.min.js" %}"></script>
+        <script src="{% static "js/plugins/chartjs/Chart.min.js" %}"></script>
+        <script src="{% static "js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js" %}"></script>
+        <script src="{% static "js/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js" %}"></script>
+        <script src="{% static "js/plugins/select2/select2.full.min.js" %}"></script>
+        <script src="{% static "js/plugins/masked-inputs/jquery.maskedinput.min.js" %}"></script>
+        <script src="{% static "js/plugins/dropzonejs/dropzone.min.js" %}"></script>
+        <script src="{% static "js/plugins/jquery-tags-input/jquery.tagsinput.min.js" %}"></script>
+        <script src="{% static "js/highcharts/highcharts.js" %}"></script>
+
+        <script src="{% static "js/plugins/sparkline/jquery.sparkline.min.js" %}"></script>
+        <script src="{% static "js/plugins/easy-pie-chart/jquery.easypiechart.min.js" %}"></script>
+        <script src="{% static "js/plugins/chartjs/Chart.min.js" %}"></script>
+        <script src="{% static "js/plugins/flot/jquery.flot.min.js" %}"></script>
+        <script src="{% static "js/plugins/flot/jquery.flot.pie.min.js" %}"></script>
+        <script src="{% static "js/plugins/flot/jquery.flot.stack.min.js" %}"></script>
+        <script src="{% static "js/plugins/flot/jquery.flot.resize.min.js" %}"></script>  
+        <script src="{% static "js/plugins/bootstrap-notify/bootstrap-notify.min.js" %}"></script>
+
+
+    </head>
+    <body>
+        <!-- Page Container -->		
+        <!--div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed"-->
+        <div id="page-container" class="sidebar-l sidebar-mini sidebar-o side-scroll header-navbar-fixed">
+            <!-- 主菜单main-Sidebar -->
+            {% include "pages/mainmenu.html" %} 
+            <!-- END Sidebar -->		
+            <!--主界面视图 Main Container -->
+			{% block index %} {% endblock %}
+			{% block dashboard %} {% endblock %}			
+            {% block sfm %} {% endblock %}
+            {% block pdm %} {% endblock %}
+            {% block opm %} {% endblock %}
+            {% block aps %} {% endblock %}
+            {% block scm %} {% endblock %}
+            {% block wms %} {% endblock %}
+            {% block ems %} {% endblock %}            
+            {% block crm %} {% endblock %}
+            {% block erp %} {% endblock %}
+            {% block cim %} {% endblock %}
+            {% block cms %} {% endblock %}  
+            {% block wkf %} {% endblock %}              
+            <!-- END Main Container -->
+            <!-- 页尾Footer -->
+            {% include "pages/footer.html" %} 
+            <!-- END Footer -->
+		</div>
+        <!-- END Page Container -->
+        <!--mes js code-->
+        {% if request.path|slice:'4' == '/mes' %} 
+            <script src="{% static "/js/mes/dashboard.js" %}"></script> 
+        {% endif %}
+        {% if request.path|slice:'14' == '/sfm/dispatch/' %} 
+            <script src="{% static "js/mes/dispatch.js" %}"></script>             
+        {% endif %}
+        {% if request.path|slice:'14' == '/sfm/transfer/' %} 
+            <script src="{% static "js/mes/transfer.js" %}"></script> 
+        {% endif %}
+        {% if request.path|slice:'10' == '/sfm/home/' %} 
+            <script src="{% static "js/mes/sfmhome.js" %}"></script> 
+        {% endif %}
+
+
+         <script>
+            $(function () {
+                App.initHelpers('slick');
+                App.initHelpers(['datepicker', 'colorpicker', 'select2', 'masked-inputs', 'tags-inputs']);
+                App.initHelpers(['table-tools', 'easy-pie-chart']);
+            });
+        </script>
+    </body>
+</html>

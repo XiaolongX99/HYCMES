@@ -1,0 +1,533 @@
+2018-04-23 16:20:52 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 16:21:02 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 16:21:25 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 16:39:29 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 16:42:32 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 16:42:50 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 16:49:24 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 16:50:22 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 16:51:56 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 16:59:01 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 16:59:21 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:00:44 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:01:19 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:05:51 ERROR exception.handle_uncaught_exception: Internal Server Error: /admin/auth/user/add/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\db\backends\utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Python36\lib\site-packages\sql_server\pyodbc\base.py", line 546, in execute
+    return self.cursor.execute(sql, params)
+pyodbc.IntegrityError: ('23000', "[23000] [Microsoft][SQL Server Native Client 11.0][SQL Server]Violation of UNIQUE KEY constraint 'UQ__p_admin___B9BE370E9ED96216'. Cannot insert duplicate key in object 'dbo.p_admin_profile'. The duplicate key value is (2). (2627) (SQLExecDirectW); [23000] [Microsoft][SQL Server Native Client 11.0][SQL Server]The statement has been terminated. (3621)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\options.py", line 574, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\sites.py", line 223, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 62, in _wrapper
+    return bound_func(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\debug.py", line 76, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 58, in bound_func
+    return func.__get__(self, type(self))(*args2, **kwargs2)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 62, in _wrapper
+    return bound_func(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 58, in bound_func
+    return func.__get__(self, type(self))(*args2, **kwargs2)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\admin.py", line 100, in add_view
+    return self._add_view(request, form_url, extra_context)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\admin.py", line 127, in _add_view
+    return super().add_view(request, form_url, extra_context)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\options.py", line 1553, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 62, in _wrapper
+    return bound_func(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 58, in bound_func
+    return func.__get__(self, type(self))(*args2, **kwargs2)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\options.py", line 1450, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\options.py", line 1491, in _changeform_view
+    self.save_related(request, form, formsets, not add)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\options.py", line 1050, in save_related
+    self.save_formset(request, form, formset, change=change)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\options.py", line 1038, in save_formset
+    formset.save()
+  File "D:\Python36\lib\site-packages\django\forms\models.py", line 670, in save
+    return self.save_existing_objects(commit) + self.save_new_objects(commit)
+  File "D:\Python36\lib\site-packages\django\forms\models.py", line 804, in save_new_objects
+    self.new_objects.append(self.save_new(form, commit=commit))
+  File "D:\Python36\lib\site-packages\django\forms\models.py", line 950, in save_new
+    obj.save()
+  File "D:\Python36\lib\site-packages\django\db\models\base.py", line 729, in save
+    force_update=force_update, update_fields=update_fields)
+  File "D:\Python36\lib\site-packages\django\db\models\base.py", line 759, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "D:\Python36\lib\site-packages\django\db\models\base.py", line 842, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "D:\Python36\lib\site-packages\django\db\models\base.py", line 880, in _do_insert
+    using=using, raw=raw)
+  File "D:\Python36\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\db\models\query.py", line 1125, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "D:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 1283, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\Python36\lib\site-packages\django\db\backends\utils.py", line 100, in execute
+    return super().execute(sql, params)
+  File "D:\Python36\lib\site-packages\django\db\backends\utils.py", line 68, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\Python36\lib\site-packages\django\db\backends\utils.py", line 77, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Python36\lib\site-packages\django\db\backends\utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Python36\lib\site-packages\django\db\utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Python36\lib\site-packages\django\db\backends\utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Python36\lib\site-packages\sql_server\pyodbc\base.py", line 546, in execute
+    return self.cursor.execute(sql, params)
+django.db.utils.IntegrityError: ('23000', "[23000] [Microsoft][SQL Server Native Client 11.0][SQL Server]Violation of UNIQUE KEY constraint 'UQ__p_admin___B9BE370E9ED96216'. Cannot insert duplicate key in object 'dbo.p_admin_profile'. The duplicate key value is (2). (2627) (SQLExecDirectW); [23000] [Microsoft][SQL Server Native Client 11.0][SQL Server]The statement has been terminated. (3621)")
+2018-04-23 17:10:19 ERROR exception.handle_uncaught_exception: Internal Server Error: /mes/dashboard/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\MESdev02\p_mes\views.py", line 48, in dashboard
+    std2=timestr(etd,-28)
+  File "D:\MESdev02\p_mes\views.py", line 15, in timestr
+    tsm=int(time.mktime(time.strptime(str,"%Y-%m-%d"))) + (tf*24*3600)
+  File "D:\Python36\lib\_strptime.py", line 559, in _strptime_time
+    tt = _strptime(data_string, format)[0]
+  File "D:\Python36\lib\_strptime.py", line 329, in _strptime
+    raise TypeError(msg.format(index, type(arg)))
+TypeError: strptime() argument 0 must be str, not <class 'NoneType'>
+2018-04-23 17:10:21 ERROR exception.handle_uncaught_exception: Internal Server Error: /mes/dashboard/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\MESdev02\p_mes\views.py", line 48, in dashboard
+    std2=timestr(etd,-28)
+  File "D:\MESdev02\p_mes\views.py", line 15, in timestr
+    tsm=int(time.mktime(time.strptime(str,"%Y-%m-%d"))) + (tf*24*3600)
+  File "D:\Python36\lib\_strptime.py", line 559, in _strptime_time
+    tt = _strptime(data_string, format)[0]
+  File "D:\Python36\lib\_strptime.py", line 329, in _strptime
+    raise TypeError(msg.format(index, type(arg)))
+TypeError: strptime() argument 0 must be str, not <class 'NoneType'>
+2018-04-23 17:15:02 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:18:33 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:20:08 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:21:27 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:21:33 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:22:46 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:22:47 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:27:24 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:28:48 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:30:45 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:34:40 ERROR exception.handle_uncaught_exception: Internal Server Error: /admin/auth/user/add/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\db\backends\utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Python36\lib\site-packages\sql_server\pyodbc\base.py", line 546, in execute
+    return self.cursor.execute(sql, params)
+pyodbc.IntegrityError: ('23000', "[23000] [Microsoft][SQL Server Native Client 11.0][SQL Server]Violation of UNIQUE KEY constraint 'UQ__p_admin___B9BE370E9ED96216'. Cannot insert duplicate key in object 'dbo.p_admin_profile'. The duplicate key value is (5). (2627) (SQLExecDirectW); [23000] [Microsoft][SQL Server Native Client 11.0][SQL Server]The statement has been terminated. (3621)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\options.py", line 574, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\sites.py", line 223, in inner
+    return view(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 62, in _wrapper
+    return bound_func(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\debug.py", line 76, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 58, in bound_func
+    return func.__get__(self, type(self))(*args2, **kwargs2)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 62, in _wrapper
+    return bound_func(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 58, in bound_func
+    return func.__get__(self, type(self))(*args2, **kwargs2)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\admin.py", line 100, in add_view
+    return self._add_view(request, form_url, extra_context)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\admin.py", line 127, in _add_view
+    return super().add_view(request, form_url, extra_context)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\options.py", line 1553, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 62, in _wrapper
+    return bound_func(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\utils\decorators.py", line 58, in bound_func
+    return func.__get__(self, type(self))(*args2, **kwargs2)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\options.py", line 1450, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\options.py", line 1491, in _changeform_view
+    self.save_related(request, form, formsets, not add)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\options.py", line 1050, in save_related
+    self.save_formset(request, form, formset, change=change)
+  File "D:\Python36\lib\site-packages\django\contrib\admin\options.py", line 1038, in save_formset
+    formset.save()
+  File "D:\Python36\lib\site-packages\django\forms\models.py", line 670, in save
+    return self.save_existing_objects(commit) + self.save_new_objects(commit)
+  File "D:\Python36\lib\site-packages\django\forms\models.py", line 804, in save_new_objects
+    self.new_objects.append(self.save_new(form, commit=commit))
+  File "D:\Python36\lib\site-packages\django\forms\models.py", line 950, in save_new
+    obj.save()
+  File "D:\Python36\lib\site-packages\django\db\models\base.py", line 729, in save
+    force_update=force_update, update_fields=update_fields)
+  File "D:\Python36\lib\site-packages\django\db\models\base.py", line 759, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "D:\Python36\lib\site-packages\django\db\models\base.py", line 842, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "D:\Python36\lib\site-packages\django\db\models\base.py", line 880, in _do_insert
+    using=using, raw=raw)
+  File "D:\Python36\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\db\models\query.py", line 1125, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "D:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 1283, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\Python36\lib\site-packages\django\db\backends\utils.py", line 100, in execute
+    return super().execute(sql, params)
+  File "D:\Python36\lib\site-packages\django\db\backends\utils.py", line 68, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\Python36\lib\site-packages\django\db\backends\utils.py", line 77, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Python36\lib\site-packages\django\db\backends\utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Python36\lib\site-packages\django\db\utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Python36\lib\site-packages\django\db\backends\utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\Python36\lib\site-packages\sql_server\pyodbc\base.py", line 546, in execute
+    return self.cursor.execute(sql, params)
+django.db.utils.IntegrityError: ('23000', "[23000] [Microsoft][SQL Server Native Client 11.0][SQL Server]Violation of UNIQUE KEY constraint 'UQ__p_admin___B9BE370E9ED96216'. Cannot insert duplicate key in object 'dbo.p_admin_profile'. The duplicate key value is (5). (2627) (SQLExecDirectW); [23000] [Microsoft][SQL Server Native Client 11.0][SQL Server]The statement has been terminated. (3621)")
+2018-04-23 17:53:42 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:57:25 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:57:28 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 17:59:51 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:05:23 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:06:36 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:07:47 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:07:56 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:07:58 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:16:21 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:16:29 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:16:31 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:16:35 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:16:40 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:17:22 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:17:36 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:20:56 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:21:11 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:21:13 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:31:31 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:31:36 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:31:39 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:32:37 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:32:46 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:32:50 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:32:53 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:33:40 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:49:31 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 18:50:19 WARNING base.get_response: Not Found: /goflow/home
+2018-04-23 18:51:31 WARNING base.get_response: Not Found: /graph/
+2018-04-23 18:51:47 WARNING base.get_response: Not Found: /goflow/graph/
+2018-04-23 18:53:04 ERROR exception.handle_uncaught_exception: Internal Server Error: /goflow/graph/1/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MESdev02\goflow\graphics\views.py", line 12, in graph
+    graph = Graph.objects.get(id=(int(id)))
+  File "D:\Python36\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\db\models\query.py", line 403, in get
+    self.model._meta.object_name
+goflow.graphics.models.DoesNotExist: Graph matching query does not exist.
+2018-04-23 18:54:39 WARNING base.get_response: Not Found: /goflow/graph/
+2018-04-23 18:54:41 WARNING base.get_response: Not Found: /graph/
+2018-04-23 18:56:23 WARNING base.get_response: Not Found: /accounts/login/
+2018-04-23 18:56:31 WARNING base.get_response: Not Found: /admin/accounts/login/
+2018-04-23 18:57:58 WARNING base.get_response: Not Found: /goflow/accounts/login/
+2018-04-23 18:58:04 WARNING base.get_response: Not Found: /goflow/mywork/activate/
+2018-04-23 18:58:07 WARNING models.activate: activate_workitem actor 95324 workitem pcoderev-提出申请 (标准修订)-1 already active
+2018-04-23 18:58:08 ERROR exception.handle_uncaught_exception: Internal Server Error: /goflow/default_app/1/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "D:\MESdev02\goflow\apptools\views.py", line 147, in default_app
+    'history':inst.wfobject().history,
+AttributeError: 'NoneType' object has no attribute 'history'
+2018-04-23 18:58:31 WARNING base.get_response: Not Found: /goflow/mywork/activate/
+2018-04-23 19:02:50 WARNING base.get_response: Not Found: /goflow/accounts/login/
+2018-04-23 19:02:51 WARNING base.get_response: Not Found: /admin/accounts/login/
+2018-04-23 19:02:52 WARNING base.get_response: Not Found: /accounts/login/
+2018-04-23 19:03:07 ERROR exception.handle_uncaught_exception: Internal Server Error: /mes/dashboard/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\MESdev02\p_mes\views.py", line 48, in dashboard
+    std2=timestr(etd,-28)
+  File "D:\MESdev02\p_mes\views.py", line 15, in timestr
+    tsm=int(time.mktime(time.strptime(str,"%Y-%m-%d"))) + (tf*24*3600)
+  File "D:\Python36\lib\_strptime.py", line 559, in _strptime_time
+    tt = _strptime(data_string, format)[0]
+  File "D:\Python36\lib\_strptime.py", line 329, in _strptime
+    raise TypeError(msg.format(index, type(arg)))
+TypeError: strptime() argument 0 must be str, not <class 'NoneType'>
+2018-04-23 19:05:15 ERROR exception.handle_uncaught_exception: Internal Server Error: /goflow//accounts/login/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: login() got an unexpected keyword argument 'template_name'
+2018-04-23 19:15:03 ERROR exception.handle_uncaught_exception: Internal Server Error: /mes/dashboard/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\MESdev02\p_mes\views.py", line 48, in dashboard
+    std2=timestr(etd,-28)
+  File "D:\MESdev02\p_mes\views.py", line 15, in timestr
+    tsm=int(time.mktime(time.strptime(str,"%Y-%m-%d"))) + (tf*24*3600)
+  File "D:\Python36\lib\_strptime.py", line 559, in _strptime_time
+    tt = _strptime(data_string, format)[0]
+  File "D:\Python36\lib\_strptime.py", line 329, in _strptime
+    raise TypeError(msg.format(index, type(arg)))
+TypeError: strptime() argument 0 must be str, not <class 'NoneType'>
+2018-04-23 19:15:05 ERROR exception.handle_uncaught_exception: Internal Server Error: /mes/dashboard/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\MESdev02\p_mes\views.py", line 48, in dashboard
+    std2=timestr(etd,-28)
+  File "D:\MESdev02\p_mes\views.py", line 15, in timestr
+    tsm=int(time.mktime(time.strptime(str,"%Y-%m-%d"))) + (tf*24*3600)
+  File "D:\Python36\lib\_strptime.py", line 559, in _strptime_time
+    tt = _strptime(data_string, format)[0]
+  File "D:\Python36\lib\_strptime.py", line 329, in _strptime
+    raise TypeError(msg.format(index, type(arg)))
+TypeError: strptime() argument 0 must be str, not <class 'NoneType'>
+2018-04-23 20:34:08 WARNING base.get_response: Not Found: /goflow/graph/
+2018-04-23 20:34:55 ERROR exception.handle_uncaught_exception: Internal Server Error: /goflow/cron/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MESdev02\goflow\workflow\views.py", line 104, in cron
+    request.user.message_set.create(message="cron has run.")
+  File "D:\Python36\lib\site-packages\django\utils\functional.py", line 216, in inner
+    return func(self._wrapped, *args)
+AttributeError: 'User' object has no attribute 'message_set'
+2018-04-23 20:35:47 ERROR exception.handle_uncaught_exception: Internal Server Error: /goflow/process/dot/2
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MESdev02\goflow\workflow\views.py", line 84, in process_dot
+    process = Process.objects.get(id=int(id))
+  File "D:\Python36\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\db\models\query.py", line 403, in get
+    self.model._meta.object_name
+goflow.workflow.models.DoesNotExist: Process matching query does not exist.
+2018-04-23 20:36:44 WARNING models.activate: activate_workitem actor 95324 workitem pcoderev-提出申请 (标准修订)-1 already active
+2018-04-23 20:36:44 ERROR exception.handle_uncaught_exception: Internal Server Error: /goflow/default_app/1/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "D:\MESdev02\goflow\apptools\views.py", line 147, in default_app
+    'history':inst.wfobject().history,
+AttributeError: 'NoneType' object has no attribute 'history'
+2018-04-23 20:39:00 ERROR exception.handle_uncaught_exception: Internal Server Error: /mes/dashboard/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\MESdev02\p_mes\views.py", line 48, in dashboard
+    std2=timestr(etd,-28)
+  File "D:\MESdev02\p_mes\views.py", line 15, in timestr
+    tsm=int(time.mktime(time.strptime(str,"%Y-%m-%d"))) + (tf*24*3600)
+  File "D:\Python36\lib\_strptime.py", line 559, in _strptime_time
+    tt = _strptime(data_string, format)[0]
+  File "D:\Python36\lib\_strptime.py", line 329, in _strptime
+    raise TypeError(msg.format(index, type(arg)))
+TypeError: strptime() argument 0 must be str, not <class 'NoneType'>
+2018-04-23 20:42:51 ERROR exception.handle_uncaught_exception: Internal Server Error: /mes/dashboard/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\MESdev02\p_mes\views.py", line 48, in dashboard
+    std2=timestr(etd,-28)
+  File "D:\MESdev02\p_mes\views.py", line 15, in timestr
+    tsm=int(time.mktime(time.strptime(str,"%Y-%m-%d"))) + (tf*24*3600)
+  File "D:\Python36\lib\_strptime.py", line 559, in _strptime_time
+    tt = _strptime(data_string, format)[0]
+  File "D:\Python36\lib\_strptime.py", line 329, in _strptime
+    raise TypeError(msg.format(index, type(arg)))
+TypeError: strptime() argument 0 must be str, not <class 'NoneType'>
+2018-04-23 20:52:43 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 20:52:46 ERROR exception.handle_uncaught_exception: Internal Server Error: /mes/dashboard/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\MESdev02\p_mes\views.py", line 48, in dashboard
+    std2=timestr(etd,-28)
+  File "D:\MESdev02\p_mes\views.py", line 15, in timestr
+    tsm=int(time.mktime(time.strptime(str,"%Y-%m-%d"))) + (tf*24*3600)
+  File "D:\Python36\lib\_strptime.py", line 559, in _strptime_time
+    tt = _strptime(data_string, format)[0]
+  File "D:\Python36\lib\_strptime.py", line 329, in _strptime
+    raise TypeError(msg.format(index, type(arg)))
+TypeError: strptime() argument 0 must be str, not <class 'NoneType'>
+2018-04-23 20:58:31 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 20:58:51 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 21:08:36 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 21:12:18 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 21:14:06 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 21:15:43 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 22:11:24 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 22:17:40 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 22:19:36 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 22:21:44 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 22:22:00 WARNING logger.<module>: settings.LOGGING_FILE not set; default is workflow.log
+2018-04-23 22:24:25 WARNING base.get_response: Not Found: /goflow/home/
+2018-04-23 22:24:27 WARNING base.get_response: Not Found: /goflow/home/
+2018-04-23 22:24:44 WARNING base.get_response: Not Found: /goflow/password_change/
+2018-04-23 22:24:50 ERROR exception.handle_uncaught_exception: Internal Server Error: /mes/dashboard/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Python36\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\MESdev02\p_mes\views.py", line 48, in dashboard
+    std2=timestr(etd,-28)
+  File "D:\MESdev02\p_mes\views.py", line 15, in timestr
+    tsm=int(time.mktime(time.strptime(str,"%Y-%m-%d"))) + (tf*24*3600)
+  File "D:\Python36\lib\_strptime.py", line 559, in _strptime_time
+    tt = _strptime(data_string, format)[0]
+  File "D:\Python36\lib\_strptime.py", line 329, in _strptime
+    raise TypeError(msg.format(index, type(arg)))
+TypeError: strptime() argument 0 must be str, not <class 'NoneType'>

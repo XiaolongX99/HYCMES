@@ -1,0 +1,236 @@
+﻿{% extends "base.html"%} 
+{% load static %}
+{% block dashboard %} 
+     <main id="main-container">               
+			   <!-- 头部图片Page Header -->
+                <div class="content md-image overflow-hidden" style="background-image: url('{% static 'img/photos/2018.jpg' %}');">
+                    <div class="push-50-t push-15">
+                        <h1 class="h2 text-white animated zoomIn">HYC战情资讯-Dashboard</h1>
+                        <h2 class="h5 text-white-op animated zoomIn">Welcome Administrator </h2>
+                    </div>
+                </div>
+                <!-- END Page Header -->
+
+                <!-- 状态总览States -->
+                <div class="content bg-white border-b">
+                    <div class="row items-push text-uppercase"  id="messum" >
+
+						<div class="col-xs-6 col-sm-3">
+                            <div class="font-w700 text-gray-darker animated fadeIn">实际完工数</div>
+                            <a class="h2 font-w300 text-primary animated flipInX" href="/dashboard/FG/" id="FG">{{ FG }}</a>
+                        </div>
+						
+                        <div class="col-xs-6 col-sm-3">
+                            <div class="font-w700 text-gray-darker animated fadeIn">作业效率</div>
+                            <a class="h2 font-w300 text-primary animated flipInX" href="/dashboard/EFY/" id="EFY">{{EFY}}</a>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <div class="font-w700 text-gray-darker animated fadeIn">工时利用率</div>
+                            <a class="h2 font-w300 text-primary animated flipInX" href="/dashboard/URT/" id="URT">{{URT}}</a>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <div class="font-w700 text-gray-darker animated fadeIn">交期达成率</div>
+                            <a class="h2 font-w300 text-primary animated flipInX" href="/dashboard/ACR/" id="ACR">{{ACR}}</a>
+                        </div>
+						<div class="col-xs-6 col-sm-3">
+                            <div class="font-w700 text-gray-darker animated fadeIn">UPPH</div>
+                            <a class="h2 font-w300 text-primary animated flipInX" href="/dashboard/UPPH/" id="UPPH">{{UPPH}}</a>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <div class="font-w700 text-gray-darker animated fadeIn">PPM</div>
+                            <a class="h2 font-w300 text-primary animated flipInX" href="/dashboard/PPM/" id="PPM">{{PPM}}</a>
+                        </div>  
+						<div class="col-xs-6 col-sm-3">
+                            <div class="font-w700 text-gray-darker animated fadeIn">直通率</div>
+                            <a class="h2 font-w300 text-primary animated flipInX" href="/dashboard/FCY/" id="FCY">{{FCY}}</a>
+                        </div>
+						<div class="col-xs-6 col-sm-3">
+                            <div class="font-w700 text-gray-darker animated fadeIn">损耗率</div>
+                            <a class="h2 font-w300 text-primary animated flipInX" href="/dashboard/SCRAP/" id="SCRAP">{{SCRAP}}</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Stats -->	
+
+				 <!-- Department,Cell,Operation,Date-->
+			    <div class="form-group block"> 
+                    <div class="row">                     
+				        <!--部门-->
+                        <div class="col-xs-6 col-sm-6 col-md-2" style="height: 40px;">
+							<select class="form-control" id="dep" name="dep" title="选择产线" size="1">
+								{% for Dep in deps %}
+                                    <option value={{Dep.0}} >{{Dep.0}}</option> 
+                                {%endfor%}
+						     </select>
+                        </div>
+						 <!--Cell-->
+                        <div class="col-xs-6 col-sm-6 col-md-2" style="height: 40px;">
+							<select class="form-control" id="cell" name="cell" title="选择Cell" size="1">
+								<option >CellSUM</option>
+								{% for Cell in cells %}
+                                    <option value={{Cell.0}} >{{Cell.0}}</option> 
+                                {%endfor%}
+							</select>
+                        </div>
+                        <!--Operation-->
+                        <div class="col-xs-6 col-sm-6 col-md-2" style="height: 40px;">
+                            <select class="form-control" id="operation" name="operation" title="选择工站" size="1">
+                                <option value="all">全部工站</option> 
+                            </select>
+                        </div>
+                        <!--Monthly,weekly,Daily-->
+                        <div class="col-xs-6 col-sm-6 col-md-2" style="height: 40px;">
+                            <select class="form-control" id="dailyselect" name="dailyselect" title="选择时间尺度" size="1">
+                                <option value="Daily" >Daily</option> 
+                                <option value="Weekly" >Weekly</option> 
+                                <option value="Monthly" >Monthly</option> 
+                            </select>
+                        </div>
+						<!--日期-->
+						 <div class="col-xs-12 col-sm-12 col-md-4" style="height: 40px;">
+							<div class="input-daterange input-group" data-date-format="yyyy-mm-dd">
+								<input class="form-control" type="text" id="daterange1" name="daterange1" title='选择开始日期' value={{startdate}} >
+								<span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
+								<input class="form-control" type="text" id="daterange2" name="daterange2" title='选择结束日期' value={{enddate}} >
+							</div>
+						</div>
+                    </div>
+				</div>	
+				<!-- END Department,Cell,Date,Operation -->
+				
+                <!-- Page Content -->
+                <div class="content">
+                    <div class="row">
+                        <!-- 数据图表Main Dashboard Chart -->
+                        <div class="block col-md-8 col-lg-8">
+                            <!-- 管制图SPC -->
+                            <div class="block js-slider remove-margin-b" data-slider-autoplay="true" data-slider-autoplay-speed="3600">    
+                                <div class="block">
+                                    <div class="block-header">
+                                        <h3 class="block-title">效率</h3>
+                                    </div>
+                                    <div class="block-content block-content-full bg-gray-lighter text-center">
+                                        <div class="font-w600" style="height: 374px;"><canvas class="js-dash-chartjs-lines" id="EFYsum" title="效率"></canvas></div>  
+                                    </div>                           
+    							</div>
+                                <div class="block">
+                                    <div class="block-header">
+                                        <h3 class="block-title">利用率</h3>
+                                    </div>
+                                    <div class="block-content block-content-full bg-gray-lighter text-center">
+                                        <div class="font-w600" style="height: 374px;"><canvas class="js-dash-chartjs-lines" id="URTsum" title="利用率"></canvas></div>  
+                                    </div>                           
+                                </div>
+                                <div class="block">
+                                    <div class="block-header">
+                                        <h3 class="block-title">生产力</h3>
+                                    </div>
+                                    <div class="block-content block-content-full bg-gray-lighter text-center">
+                                         <div class="font-w600" style="height: 374px;"><canvas class="js-dash-chartjs-lines" id="ACRsum" title="生产力"></canvas></div>
+                                    </div>                           
+                                </div>
+                                <div class="block">
+                                    <div class="block-header">
+                                        <h3 class="block-title">UPPH</h3>
+                                    </div>
+                                    <div class="block-content block-content-full bg-gray-lighter text-center">
+                                        <div class="font-w600" style="height: 374px;"><canvas class="js-dash-chartjs-lines" id="UPPHsum" title="UPPH"></canvas></div>
+                                    </div>       
+                                </div>
+                                <div class="block">
+                                    <div class="block-header">
+                                        <h3 class="block-title">完工数</h3>
+                                    </div>
+                                    <div class="block-content block-content-full bg-gray-lighter text-center">
+                                        <div class="font-w600" style="height: 374px;"><canvas class="js-dash-chartjs-lines" id="FGsum" title="完工数"></canvas></div>
+                                    </div> 
+                                </div>
+                                <div class="block">
+                                    <div class="block-header">
+                                        <h3 class="block-title">投入人力</h3>
+                                    </div>
+                                    <div class="block-content block-content-full bg-gray-lighter text-center">
+                                        <div class="font-w600" style="height: 374px;"><canvas class="js-dash-chartjs-lines" id="PQsum" title="投入人力"></canvas></div>
+                                    </div>                           
+                                </div>
+                                 <div class="block">
+                                    <div class="block-header">
+                                        <h3 class="block-title">PPM</h3>
+                                    </div>
+                                    <div class="block-content block-content-full bg-gray-lighter text-center">
+                                        <div class="font-w600" style="height: 374px;"><canvas class="js-dash-chartjs-lines" id="PPMsum" title="PPM"></canvas></div>
+                                    </div>                           
+                                </div>
+
+                                <!-- Pie Chart -->
+                                <div class="block">
+                                    <div class="block-header">
+                                        <h3 class="block-title">品质缺陷</h3>
+                                    </div>
+                                    <div class="block-content block-content-full bg-gray-lighter text-center">
+                                        <div class="font-w600" style="height: 300px;"><canvas class="js-flot-pie" id="FQCsum" title="品质缺陷"></canvas></div>
+                                    </div>                           
+                                </div>
+                            <!-- END Pie Chart -->                          
+                            </div>
+                            <!-- END chart -->
+                            <!--图表结论-->
+                            <div class="block-content text-center">
+                            <div class="row items-push text-center">
+                                <div class="col-xs-6 col-lg-3 ">
+                                    <div class="push-10"><i class="si si-users fa-2x"></i></div>
+                                    <div class="h5 font-w300 text-muted" id="issue_sum">问题{{issue_sum}}</div>
+                                </div>
+                                <div class="col-xs-6 col-lg-3 ">
+                                    <div class="push-10"><i class="si si-share fa-2x"></i></div>
+                                    <div class="h5 font-w300 text-muted" id="plan_sum">计划{{plan_sum}}</div>
+                                </div>
+                               <div class="col-xs-6 col-lg-3 ">
+                                    <div class="push-10"><i class="si si-graph fa-2x"></i></div>
+                                    <div class="h5 font-w300 text-muted" id="check_sum">检查{{check_sum}}</div>
+                                </div>
+                                <div class="col-xs-6 col-lg-3 ">
+                                    <div class="push-10"><i class="si si-star fa-2x"></i></div>
+                                    <div class="h5 font-w300 text-muted" id="action_sum">总结{{action_sum}}</div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <!-- Cell汇总报表 Latest Widget -->
+                        <div class="col-md-4 col-lg-4">                            
+                            <div class="block">
+                                <div class="block-header">
+                                    <ul class="block-options">
+                                        <li>
+                                            <button type="button" data-toggle="block-option" id="refresh_data"><i class="si si-refresh"></i></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title">汇总表</h3>
+                                </div>
+                                <div class="block-content">
+                                    <div class="pull-t pull-r-l">
+                                        <div class="js-slider remove-margin-b" data-slider-autoplay="true" data-slider-autoplay-speed="7200">
+                                            <div>
+                                                <table class="table remove-margin-b font-s13" id="EFYURTACR">
+                                                    <!--cell数据列表-->
+                                                </table>
+                                            </div>
+                                            <div>
+                                                <table class="table remove-margin-b font-s13" id="FGPQUPPH">
+                                                     <!--cell数据列表-->
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- END Slick slider -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END Latest Widget -->
+                        </div>
+                        <!-- END汇总报表 Latest Widget -->   
+                                            
+                    </div>
+                </div>
+            <!-- END Page Content -->
+	</main>
+{% endblock %}	

@@ -1,0 +1,110 @@
+<!--SFM2 数据采集-->
+{% extends "base.html" %}  
+{% load static %} 
+{% block aps %}
+<main id="main-container">
+	<div class="row">
+
+                  <!-- 头部导航 -->
+                  <div class="col-md-12">
+                    <nav class="navbar navbar-inverse">
+                      <div class="block-content">
+                        <ol class="breadcrumb">  
+                                {% for path in paths %}
+                                    {% if path.0 == '0408' %}
+                                      <li calss='active'>{{path.1}}</li>
+                                    {% else %}
+                                       <li><a href="{{path.2}}">{{path.1}}</a></li>
+                                    {% endif %}
+                                {% endfor %}                           
+                        </ol>
+                      </div>
+                     </nav>  
+                   </div>
+							         
+                    <!-- 生产移转 -->
+                    <div class="row">
+
+                        <!-- 移转产品信息-->
+                        <div class="col-md-6">
+                            <div class="block">
+                                <div class="block-content block-content-narrow">
+                                    <form class="form-horizontal">
+                                         <div class="form-group">
+                                            <label  id="triduuid" name="triduuid" style="display:none"></label>
+                                            {% for ERP in ERPS %}
+                                            <input style="display:none"  type="text" id="ERPoperation" value='{{ERP.0}}'>
+                                            {% endfor %}
+                                        </div>  
+                                        <div class="form-group has-error">
+                                            <label class="col-sm-1" >产线</label>                                       
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="DEP" name="dep" size="1" title='产线'>
+                                                    {% for Dep in deps %}
+                                                          <option value={{Dep.0}} >{{Dep.1}}</option> 
+                                                    {%endfor%}                                               
+                                                 </select>
+                                            </div>
+                                            <label class="col-sm-1" >Cell</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="CELL" name="cell" size="1" title='Cell'>
+                                                    {% for Cell in cells %}
+                                                        <option value={{Cell.0}} >{{Cell.1}}</option> 
+                                                    {%endfor%}
+                                                </select>
+                                            </div>
+                                        </div>  
+                                        <div class="form-group has-warning">
+                                            <label class="col-sm-1" >工站</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="OPERATION" name="operation" size="1" title='工站'>
+                                                    {% for Operation in operations %}
+                                                        <option value={{Operation.0}} >{{Operation.1}}</option> 
+                                                    {%endfor%}  
+                                                </select>
+                                            </div>
+                                            <label class="col-sm-1" >群组</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="GROUP" name="GROUP" size="1" title='群组'>
+                                                    {% for Group in groups %}
+                                                        <option value={{Group.0}} >{{Group.1}}</option> 
+                                                    {%endfor%}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-success">
+                                            <label class="col-sm-1">制程</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="PROCESS" name="PROCESS" size="4" multiple>
+                                                    {% for Process in processs %}
+                                                        <option value={{Process.0}} >{{Process.1}}</option> 
+                                                    {%endfor%}  
+                                                </select>
+                                            </div>
+                                            <label class="col-sm-1" for="example-tiple-mulselect">工号</label>                                            
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="OPERATOR" name="OPERATOR" size="4" multiple>
+                                                    {% for operator in operators %}
+                                                        <option value={{operator.0}} >{{operator.1}}</option> 
+                                                    {%endfor%}  
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END 移转产品信息 -->
+
+
+
+                    </div>
+                    <!-- END 生产移转 -->
+
+	</div>
+</main>
+
+{% endblock %}

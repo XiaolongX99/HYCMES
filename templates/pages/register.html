@@ -1,0 +1,173 @@
+{% load static %} 
+<!DOCTYPE html>
+ <html class="no-focus"> 
+    <head>
+        <meta charset="utf-8">
+        <title>HYC | MES 用户注册</title>
+        <meta name="description" content="OneUI - Admin Dashboard Template & UI Framework">
+        <meta name="author" content="xiaolongx">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+        <link rel="shortcut icon" href="{% static "img/favicons/hyc.ico" %}">
+        <link rel="stylesheet" id="css-main" href="{% static "css/oneui.css" %}">
+    </head>
+    <body>
+        <!-- Register Content -->
+        <div class="content overflow-hidden">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+                    <!-- Register Block -->
+                    <div class="block block-themed animated fadeIn">
+                        <div class="block-header bg-success">
+                            <ul class="block-options">
+                                <li>
+                                    <a href="#" data-toggle="modal" data-target="#modal-terms">用户管理要求</a>
+                                </li>
+                                <li>
+                                    <a href="/login/" data-toggle="tooltip" data-placement="left" title="登录"><i class="si si-login"></i></a>
+                                </li>
+                            </ul>
+                            <h3 class="block-title">用户注册</h3>
+                        </div>
+                        <div class="block-content block-content-full block-content-narrow">
+                            <!-- Register Title -->
+                            <h1 class="h2 font-w600 push-30-t push-5">HYC | MES</h1>
+                            <p>按要求填写以下注册信息！</p>
+                            <!-- END Register Title -->
+                            <form class="js-validation-register form-horizontal push-50-t push-50" action="/register/" method="post">{% csrf_token %}
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="form-material form-material-success">
+                                            <input class="form-control" type="text" id="username" name="username" placeholder="输入你的工号：">
+                                            <label for="register-username">User Name</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="form-material form-material-success">
+                                            <input class="form-control" type="email" id="email" name="email" placeholder="输入工作邮箱：">
+                                            <label for="register-email">Email</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="form-material form-material-success">
+                                            <input class="form-control" type="password" id="password" name="password" placeholder="输入密码...">
+                                            <label for="register-password">Password</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="form-material form-material-success">
+                                            <input class="form-control" type="password" id="password2" name="password2" placeholder="确认密码...">
+                                            <label for="register-password2">Confirm Password</label>
+                                        </div>
+                                    </div>
+                                </div>
+								<div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="form-material form-material-success">
+                                            <input class="form-control" type="text" id="first_name" name="first_name" placeholder="输入中文姓名">
+                                            <label for="first_name">Chinese Name</label>
+                                        </div>
+                                    </div>
+                                </div>
+								<div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="form-material form-material-success">
+                                            <input class="form-control" type="text" id="last_name" name="last_name" placeholder="输入部门名称">
+                                            <label for="last_name">Department</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label class="css-input switch switch-sm switch-success">
+                                            <input type="checkbox" id="register-terms" name="register-terms"><span></span> 已阅读用户管理要求！
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12 col-sm-6 col-md-5">
+                                        <button class="btn btn-block btn-success" type="submit" id="reg_sum"><i class="fa fa-plus pull-right"></i>立即注册</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- END Register Form -->
+                        </div>
+                    </div>
+                    <!-- END Register Block -->
+                </div>
+            </div>
+        </div>
+        <!-- END Register Content -->
+
+        <!-- Register Footer -->
+		{% include "pages/footer.html" %}
+        <!-- END Register Footer -->
+
+        <!-- Terms Modal -->
+        <div class="modal fade" id="modal-terms" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-popout">
+                <div class="modal-content">
+                    <div class="block block-themed block-transparent remove-margin-b">
+                        <div class="block-header bg-primary-dark">
+                            <ul class="block-options">
+                                <li>
+                                    <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                                </li>
+                            </ul>
+                            <h3 class="block-title">用户注册条件和管理说明</h3>
+                        </div>
+                        <div class="block-content">
+                            <p>1.每个邮箱只能注册一个帐号！<br>
+							2.用户注册后将由系统管理员审查确认权限后生效！
+							     </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">关闭</button>
+                        <button class="btn btn-sm btn-primary" type="button" data-dismiss="modal"><i class="fa fa-check"></i>我同意</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Terms Modal -->
+
+        <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+        <script src="{% static "js/core/jquery.min.js" %}"></script>
+        <script src="{% static "js/core/bootstrap.min.js" %}"></script>
+        <script src="{% static "js/core/jquery.slimscroll.min.js" %}"></script>
+        <script src="{% static "js/core/jquery.scrollLock.min.js" %}"></script>
+        <script src="{% static "js/core/jquery.appear.min.js" %}"></script>
+        <script src="{% static "js/core/jquery.countTo.min.js" %}"></script>
+        <script src="{% static "js/core/jquery.placeholder.min.js" %}"></script>
+        <script src="{% static "js/core/js.cookie.min.js" %}"></script>
+        <script src="{% static "js/app.js" %}"></script>
+
+        <!-- Page JS Plugins -->
+        <script src="{% static "js/plugins/jquery-validation/jquery.validate.min.js" %}"></script>
+
+        <!-- Page JS Code -->
+        <script src="{% static "js/pages/base_pages_register.js" %}"></script>
+        <script>
+            $(document).ready(function(){
+                //alert("注册成功，等待管理员确认后帐号生效！"); 
+                $("#reg_sum").click(function(){
+                    $.ajax({
+                            url:"/login/",
+                            type:"POST",
+                            data:{},
+                            dataType:"json",
+                            success:function(ret){  
+                            alert("注册成功，等待管理员确认后帐号生效！");       
+                                },
+                            });     
+                });
+            });          
+        </script>
+    </body>
+</html>

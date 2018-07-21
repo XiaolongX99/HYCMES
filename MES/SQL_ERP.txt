@@ -1,0 +1,7 @@
+--ERP委外材料成本--2018.5.15
+select TA026,TA027,TA028,TA006,TA015,TN009,TB001,TB002,TB003,TB004,TB007,TB011,TB012,TB013,case when TM010 is null then LB010 else TM010 end as ItemCost,case when TM010 is null then LB010*TB004 else TM010*TB004 end as SumCost,TB004/nullif(TA015,0)as unitqty,(case when TM010 is null then LB010 else TM010 end)*(TB004/nullif(TA015,0)) as unitcost   from MOCTB 
+left join (select * from (select LB001,LB002,LB003,LB004,LB010,ROW_NUMBER()over(partition by LB001 order by LB002 desc) as rowid from INVLB )LB where rowid =1)ERPT on TB003=LB001 
+left join (select * from (select TM001,TM002,TM004,TM005,TM006,TM007,TM008,TM009,TM010,TM011,TM014,ROW_NUMBER()over(partition by TM004 order by TM014 desc) as rowid from PURTM )TM where rowid=1 and TM011='Y')ERPM on TB003=TM004
+left join MOCTA on TA001=TB001 and TA002=TB002 
+left join(select * from (select TN001,TN002,TN003,TN004,TN009,ROW_NUMBER()over(partition by TN004 order by TN011 desc) as rowid from MOCTN)TN where rowid =1)ERPN on TN004=TA006
+where (left(TB003,1)=4 or TB011=4)

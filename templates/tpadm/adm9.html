@@ -1,0 +1,27 @@
+<!--SFM2 数据采集-->
+{% extends "base.html" %}  
+{% load static %} 
+{% block pdm %}
+<main id="main-container">
+	<div class="row">
+                  <!-- 头部导航 -->
+                  <div class="col-md-12">
+                    <nav class="navbar navbar-inverse">
+                      <div class="block-content">
+                        <ol class="breadcrumb">  
+                                {% for path in paths %}
+                                    {% if path.0 == '1309' %}
+                                      <li calss='active'>{{path.1}}</li>
+                                    {% else %}
+                                       <li><a href="{{path.2}}">{{path.1}}</a></li>
+                                    {% endif %}
+                                {% endfor %}                           
+                        </ol>
+                      </div>
+                     </nav>  
+                   </div>
+
+	</div>
+</main>
+
+{% endblock %}

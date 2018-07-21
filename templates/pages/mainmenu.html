@@ -1,0 +1,157 @@
+  <!--主菜单和头部-->
+  {% load static %} 
+           <!-- 1菜单Sidebar -->
+            <nav id="sidebar">
+                <!-- 2Sidebar Scroll Container -->
+             <div id="sidebar-scroll">
+                    <!-- 3Sidebar Content -->
+                    <div class="sidebar-content">     
+          	            <!-- 4主页Home头Side Header -->
+                        <div class="side-header side-content bg-white-op">
+                            <!-- Layout API, functionality initialized in App() -> uiLayoutApi() -->
+                            <button class="btn btn-link text-gray pull-right hidden-md hidden-lg" type="button" data-toggle="layout" data-action="sidebar_close">
+                                <i class="fa fa-times"></i>
+                            </button>
+                            <!-- 主题初始化 -->
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-link text-gray dropdown-toggle" data-toggle="dropdown" type="button">
+                                    <i class="si si-drop"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right font-s13 sidebar-mini-hide">
+ 
+                                    <li>
+                                        <a data-toggle="theme" data-theme="default" tabindex="-1" href="#">
+                                            <i class="fa fa-circle text-default pull-right"></i> <span class="font-w600">Defaut</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="theme" data-theme="{% static "css/themes/amethyst.min.css" %}" tabindex="-1" href="#">
+                                            <i class="fa fa-circle text-amethyst pull-right"></i> <span class="font-w600">Amethyst</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="theme" data-theme="{% static "css/themes/city.min.css" %}" tabindex="-1" href="#">
+                                            <i class="fa fa-circle text-city pull-right"></i> <span class="font-w600">City</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="theme" data-theme="{% static "css/themes/flat.min.css" %}" tabindex="-1" href="#">
+                                            <i class="fa fa-circle text-flat pull-right"></i> <span class="font-w600">Flat</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="theme" data-theme="{% static "css/themes/modern.min.css" %}" tabindex="-1" href="#">
+                                            <i class="fa fa-circle text-modern pull-right"></i> <span class="font-w600">Modern</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="theme" data-theme="{% static "css/themes/smooth.min.css" %}" tabindex="-1" href="#">
+                                            <i class="fa fa-circle text-smooth pull-right"></i> <span class="font-w600">Smooth</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+							<!--Home主页-->
+                            <a class="h5 text-white" href="/">
+                                <i class="fa fa-home text-primary"></i> <span class="h4 font-w600 sidebar-mini-hide">HYC | MES</span>
+                            </a>
+                        </div>
+                        <!-- END Side Header -->
+                        <!-- 主功能菜单Side Content -->
+                        <div class="side-content">
+                            <ul class="nav-main">
+                                <li class="nav-main-heading"><span class="sidebar-mini-hide">SUBSYSTEMS</span></li>
+
+                                {% for menu in menus %}   
+                                <li>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="{{menu.2}}"><i class="{{menu.3}}"></i><span class="sidebar-mini-hide">{{menu.1}}</span></a>
+                                </li>
+                                {% endfor %}    								
+                            </ul>
+
+                         <!-- 4END Side Content -->
+                      </div>
+                    <!-- 3END  Sidebar Content -->
+                </div>
+                <!-- 2END Sidebar Scroll Container -->
+            </div>
+			<!--1END Navbar-->
+			</nav>
+            <!-- 头部工具栏Header -->
+            <header id="header-navbar" class="content-mini content-mini-full" style="background-color: #0000AA">
+                <!-- 头部右边Header Navigation Right -->
+                <ul class="nav-header pull-right col-xs-2">
+                    <li>
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-image dropdown-toggle" data-toggle="dropdown" type="button">
+                                <img src="{% static "img/favicons/hyc.png" %}" alt="User">
+								<span class="si si-user pull-left"> {{userCHNname}}</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <!--li class="dropdown-header">个人邮件Profile</li-->
+                                <li>
+                                    <a tabindex="-1" href="/profile/messages/">
+                                        <i class="si si-envelope-open pull-right"></i>
+                                        <span class="badge badge-primary pull-right">{{Message}}</span>短消息
+                                    </a>
+                                </li>
+                                <li>
+                                    <a tabindex="-1" href="/profile/tasks/">
+                                        <i class="si si-list pull-right"></i>
+                                        <span class="badge badge-success pull-right">{{Task}}</span>工作任务
+                                    </a>
+                                </li>
+								
+								<li class="divider"></li>
+                                <!--li class="dropdown-header">Actions</li-->
+                                <li>
+                                    <a tabindex="-1" href="/profile/setting/">
+                                        <i class="si si-settings pull-right"></i>用户设置
+                                    </a>
+                                </li>
+								
+                                <li>
+                                    <a tabindex="-1" href="/lock/">
+                                        <i class="si si-lock pull-right"></i>锁定屏幕
+									</a>
+                                </li>
+								
+                                <li>
+                                    <a tabindex="-1" href="/logout/">
+                                        <i class="si si-logout pull-right"></i>登出系统
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <!-- END Header Navigation Right -->
+
+                <!-- 头部左边Header Navigation Left -->
+                <ul class="nav-header pull-left col-xs-10">
+                    <li class="hidden-md hidden-lg">
+                        <!-- 菜单缩放Layout API, functionality initialized in App() -> uiLayoutApi() -->
+                        <button class="btn btn-default" data-toggle="layout" data-action="sidebar_toggle" type="button">
+                            <i class="fa fa-navicon"></i>
+                        </button>
+                    </li>
+                    <li class="hidden-xs hidden-sm">
+                        <!--菜单缩放Layout API, functionality initialized in App() -> uiLayoutApi() -->
+                        <button class="btn btn-default" data-toggle="layout" data-action="sidebar_mini_toggle" type="button">
+                            <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                    </li>
+                            				
+                </ul>
+                <!-- END Header Navigation Left -->
+            </header>
+            <!-- END Header -->
+            
+            <script>
+                $(".nav-submenu").click(function(){
+                      //alert("OK");
+                      $(".nav-submenu").removeClass("active");
+                      $(this).addClass("active");
+                });
+			</script>

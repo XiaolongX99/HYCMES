@@ -1,0 +1,53 @@
+<!--index heml-->
+{% extends "base.html" %}  
+{% load static %} 
+{% block index %}
+<main id="main-container">
+	<div class="row">
+                <!-- 头部图片Page Header -->
+                <div class="content md-image overflow-hidden" style="background-image: url('{% static 'img/photos/2018.jpg' %}');">
+                    <div class="push-50-t push-15">
+                        <h1 class="h2 text-white animated zoomIn">HYC-Manufacturing Execution System</h1>
+                        <h2 class="h5 text-white-op animated zoomIn">Welcome  Administrator</h2>
+                    </div>
+                </div>
+			<!--主页文档-->
+			<div class="content content-boxed">
+                    <!-- Demo Content -->
+                    <div class="block block-rounded">
+                        <div class="block-header">
+                            <ul class="block-options">
+                                <li>
+                                    <button type="button"><i class="si si-settings"></i></button>
+                                </li>
+                            </ul>
+                            <h3 class="block-title">MES SUBSYSTEMS INTRODUCTION</h3>
+                        </div>
+                        <div class="block-content block-content-full block-content-narrow">
+							<div class="push-30 push-30-t">
+								<li>MES主要为协同各单位工作，统一各种数据接口与标准。</li>
+								<li>SFM生产现场：车间现场资料收集与生产控制，品质控制。开发中...</li>
+								<li>PDM产品数据：处理产品Item、BOM、Routing、Spec、ECR数据，并与ERP同步。开发中...</li>
+								<li>OPM运作绩效：评价生产线、生产人员、工作流、项目运作绩效，并进行改进。开发中...</li>
+								<li>APS计划与调度：生产需求与产能和资源整体规划，车间生产调度。开发中...</li>
+								<li>SCM供应链：供应商、物料认证，采购、存储、品质管理。</li>
+                                <li>WMS仓储管理：动态仓库规划，进出管理，动态看板。</li>
+                                <li>EMS设备维护：设备建档，维护，运行监控。</li>
+								<li>CRM客户关系：客户需求与价值分析。</li>
+								<li>ERP数据整合：统整各个平台数据。</li>
+                                <li>CIM集成制造：测试系统整合。</li>
+                                <li>CMS文档管理：产品资料文件，档案管理。</li>
+                                <li>WKF工作流：工作流办公自动化资讯系统。</li>
+								<li>ADM管理后台：系统参数设置和后台数据维护。</li>
+                                <li>发布版本：DEV1.09,2018.6.24</li>
+                                <li>浏览器推存使Google-Chrome,Apple-Safari,Microsoft-Edge,IE11以上版本，不支持IE10以下版本</li>                              
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Demo Content -->
+                </div>
+                <!-- END Page Content -->
+	</div>
+</main>
+{% endblock %}
+

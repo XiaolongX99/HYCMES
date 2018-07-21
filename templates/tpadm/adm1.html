@@ -1,0 +1,133 @@
+<!--SFM2 数据采集-->
+{% extends "base.html" %}  
+{% load static %} 
+{% block pdm %}
+<main id="main-container">
+	<div class="row">
+                  <!-- 头部导航 -->
+                  <div class="col-md-12">
+                    <nav class="navbar navbar-inverse">
+                      <div class="block-content">
+                        <ol class="breadcrumb">  
+                                {% for path in paths %}
+                                    {% if path.0 == '1301' %}
+                                      <li calss='active'>{{path.1}}</li>
+                                    {% else %}
+                                       <li><a href="{{path.2}}">{{path.1}}</a></li>
+                                    {% endif %}
+                                {% endfor %}                           
+                        </ol>
+                      </div>
+                     </nav>  
+                   </div>
+
+                        <div class="col-lg-6 pull-center">
+                            <div class="block">
+
+                                <div class="block-header">
+                                    <ul class="block-options">
+                                        <li>
+                                            <button type="button"><i class="si si-settings"></i></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title">用户信息修改</h3>
+                                </div>
+
+                                <div class="block-content block-content-narrow">
+
+                                    <form class="js-validation-material form-horizontal push-10-t" method="post">  
+
+                                        <div class="form-group">
+                                            <div class="col-sm-9">
+                                                <div class="form-material">
+                                                    <input class="form-control" type="text" id="val-email2" name="val-email2" placeholder="Enter your valid email..">
+                                                    <label for="val-email2">邮箱地址</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-9">
+                                                <div class="form-material">
+                                                    <input class="form-control" type="password" id="cur-password" name="cur-password" placeholder="Enter Yout Password">
+                                                    <label for="cur-password">当前密码</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-9">
+                                                <div class="form-material">
+                                                    <input class="form-control" type="password" id="val-password" name="val-password" placeholder="Change your password!">
+                                                    <label for="val-confirm-password2">修改密码</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-9">
+                                                <div class="form-material">
+                                                    <input class="form-control" type="text" id="CHNAME" name="CHNAME" placeholder="Chinese Name">
+                                                    <label for="val-website2">中文姓名</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-9">
+                                                <div class="form-material">
+                                                    <select class="form-control" id="DEP" name="DEP">   
+                                                        {% for Dep in deps %}
+                                                              <option value={{Dep.0}} >{{Dep.1}}</option> 
+                                                        {%endfor%}  
+                                                    </select>
+                                                    <label for="DEP">直属部门</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-9">
+                                                <div class="form-material">
+                                                    <input class="form-control" type="text"  id="DEPTITLE" name="DEPTITLE" placeholder="Title">
+                                                    <label for="DEP">职务头衔</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-9">
+                                                <div class="form-material">
+                                                    <input class="form-control" type="text" id="TELNUMBER" name="TELNUMBER" placeholder="Telphone">
+                                                    <label for="TELNUMBER">手机号码</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-xs-12">
+                                                <label><a data-toggle="modal" data-target="#modal-terms" href="#">条款</a> <span class="text-danger">*</span></label>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <label class="css-input css-checkbox css-checkbox-primary" for="val-terms2">
+                                                    <input type="checkbox" id="val-terms2" name="val-terms2" value="1" checked="true"><span></span> I agree to the terms
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-xs-12">
+                                                <button class="btn btn-sm btn-primary" type="submit">保存信息</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- END Material Forms Validation -->
+                        </div>
+
+
+
+	</div>
+</main>
+
+{% endblock %}

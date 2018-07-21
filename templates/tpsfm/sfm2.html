@@ -1,0 +1,382 @@
+<!--SFM2 数据采集-->
+{% extends "base.html" %}  
+{% load static %} 
+{% block sfm %}
+<main id="main-container">
+	<div class="row">
+                <!-- 头部导航 -->
+                  <div class="col-md-12">
+                    <nav class="navbar navbar-inverse">
+                      <div class="block-content">
+                        <ol class="breadcrumb">  
+                                {% for path in paths %}
+                                    {% if path.0 == '0102' %}
+                                      <li calss='active'>{{path.1}}</li>
+                                    {% else %}
+                                       <li><a href="{{path.2}}">{{path.1}}</a></li>
+                                    {% endif %}
+                                {% endfor %}                           
+                        </ol>
+                      </div>
+                     </nav>  
+                   </div>
+							         
+                    <!-- 生产移转 -->
+                    <div class="row">
+
+                        <!-- 移转产品信息-->
+                        <div class="col-md-6">
+                            <div class="block">
+                                <div class="block-content block-content-narrow">
+                                    <form class="form-horizontal" >
+
+                                        <div class="form-group">
+                                            <label  id="triduuid" name="triduuid" style="display:none"></label>
+                                            {% for ERP in ERPS %}
+                                            <input style="display:none"  type="text" id="ERPoperation" value='{{ERP.0}}'>
+                                            {% endfor %}
+                                        </div>  
+                                        <div class="form-group has-error">
+                                            <label class="col-sm-1" >产线</label>                                       
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="DEP" name="dep" size="1" title='产线'>
+                                                    {% for Dep in deps %}
+                                                          <option value={{Dep.0}} >{{Dep.1}}</option> 
+                                                    {%endfor%}                                               
+                                                 </select>
+                                            </div>
+                                            <label class="col-sm-1" >Cell</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="CELL" name="cell" size="1" title='Cell'>
+                                                    {% for Cell in cells %}
+                                                        <option value={{Cell.0}} >{{Cell.1}}</option> 
+                                                    {%endfor%}
+                                                </select>
+                                            </div>
+                                        </div>  
+                                        <div class="form-group has-error">
+                                            <label class="col-sm-1" >工站</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="OPERATION" name="operation" size="1" title='工站'>
+                                                    {% for Operation in operations %}
+                                                        <option value={{Operation.0}} >{{Operation.1}}</option> 
+                                                    {%endfor%}  
+                                                </select>
+                                            </div>
+                                            <label class="col-sm-1" >群组</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="GROUP" name="GROUP" size="1" title='群组'>
+                                                    {% for Group in groups %}
+                                                        <option value={{Group.0}} >{{Group.1}}</option> 
+                                                    {%endfor%}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-warning">
+                                            <label class="col-sm-1" >订单</label>
+                                            <div class="col-sm-5">
+                                                <input class="form-control" type="text" id="dispatchpo" name="po" placeholder="订单号..." title="输入订单号">
+                                            </div>
+                                            <label class="col-sm-1" >项次</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="dispatchpoid" name="poid" size="1" title="订单项次">
+                                                    {% for POID in poids %}
+                                                          <option value={{POID.0}} >{{POID.0}}</option> 
+                                                    {%endfor%}   
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-info">
+                                            <label class="col-sm-1" >料号</label>
+                                            <div class="col-sm-5">
+                                                <input class="form-control" type="text" id="item" name="item" title='产品料号' placeholder='产品料号'> 
+                                            </div>                                        
+                                            <label class="col-sm-1" >工单</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="dispatchwo" name="wo" size="1" title="工单">
+                                                    {% for WO in wos %}
+                                                          <option value={{WO.0}} >{{WO.0}}</option> 
+                                                    {%endfor%}   
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-info">
+                                            <label class="col-sm-3" id='startqty'>投料数量</label>
+                                            <label class="col-sm-3" id='completeqty'>完工数量</label>
+                                            <label class="col-sm-1">状态</label>
+                                            <div class="col-sm-5">
+                                              <label class="css-input switch switch-info" id='wslabel' title='ON：Open；OFF：Closed'>
+                                                  <input type="checkbox" id='wostates' checked><span></span>
+                                              </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-info">
+                                            <label class="col-sm-1">日期</label>
+                                            <div class="col-sm-5">
+                                                <input class="js-datepicker form-control" type="text" id="WDATE" name="WDATE" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd">
+                                            </div>
+                                            <label class="col-sm-1">模式</label>
+                                            <div class="col-sm-2">
+                                              <label class="css-input switch switch-warning" title='ON：单个或单批，OFF：多个或多批' >
+                                                  <input type="checkbox" id='sntype' checked><span></span>
+                                              </label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-sm btn-primary" type="button" id='transfer'>保 存 生 产 数 据</button>         
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-warning">
+                                            <label class="col-sm-1">序号</label>
+                                            <div class="col-sm-5">
+                                                <input class="form-control" type="text" id="transfersn" name="SN" placeholder="流程单号..." title="输入流程单号, 然后按回车键" style="background-color: #FFFFE0;">
+                                            </div>
+
+                                            <label class="col-sm-1" >转入</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="INOPERATION" name="inoperation" size="1" title='完工转入下一工站，未完工则转入本站，转到前站，则表示产品批失效！'>
+                                                    {% for Operation in inoperations %}
+                                                        <option value={{Operation.0}} >{{Operation.1}}</option> 
+                                                    {%endfor%}  
+                                                </select>
+                                            </div>
+                                         </div>
+
+                                        <div class="form-group has-warning">
+                                            <input style="display:none"  type="text" id="LOTSIZE" value='0'>   
+                                            <input style="display:none"  type="text" id="distates" value='0'>
+                                            <input style="display:none"  type="text" id="operationpro" value='0'>
+                                            <label class="col-sm-1">投入</label>
+                                            <div class="col-sm-5">
+                                                <input  class="form-control" type="text" id="inputqty" name="input" title="投入数..." value='0'>
+                                            </div>
+                                            <label class="col-sm-1">产出</label>
+                                            <div class="col-sm-5">
+                                                <input  class="form-control" type="text" id="passqty" name="pass" title="产出数..." value='0'>
+                                            </div>
+                                            <label class="col-sm-12" id='transferinfo'></label>
+                                        </div>                                        
+
+                                        <div class="form-group has-success">
+                                            <label class="col-sm-1">制程</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="PROCESS" name="PROCESS" size="6" multiple>
+                                                    {% for Process in processs %}
+                                                        <option value={{Process.0}} >{{Process.1}}</option> 
+                                                    {%endfor%}  
+                                                </select>
+                                            </div>
+                                            <label class="col-sm-1">人员</label>                                            
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="OPERATOR" name="OPERATOR" size="6" multiple>
+                                                    {% for operator in operators %}
+                                                        <option value={{operator.0}} >{{operator.1}}</option> 
+                                                    {%endfor%}  
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" >
+                                            <div class="col-sm-12">                                 
+                                                <table class="table table-striped table-hover" id='transferlist' style="display:none">
+                                                      <thead>
+                                                        <th>流程单</th>
+                                                        <th>产出数</th>
+                                                        <th>失效数</th>
+                                                        <th>失效模式</th>
+                                                        <th>失效说明</th>
+                                                        <th>作业员</th>
+                                                     <thead>
+                                                </table> 
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                 <div class="block" >
+                                                    <div class="block-header" >
+                                                        <ul class="block-options">
+                                                            <li>
+                                                                <button type="button" id='snlistid'><i class="si si-settings"></i></button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <table class="table table-striped table-hover" id='snlist'>
+                                                          <thead>
+                                                             <th>流程单</th>                                                    
+                                                             <th>数量</th>
+                                                             <th>Cell</th>
+                                                             <th>工站</th>
+                                                             <th>时间</th>
+                                                         <thead>
+                                                    </table>   
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END 移转产品信息 -->
+        
+
+                        <div class="col-md-6">
+                          <div class="block">                           
+                            <form class="form-horizontal">
+                                <div class="block-header"  style="background-color:rgb(150,200,200)">
+                                    <ul class="block-options">
+                                        <li>
+                                            <button type="button" id='productinfo'><i class="si si-settings"></i></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title">产品信息</h3>
+                                </div>
+                                <div class="block-content block-content-narrow"  id='productdata'>
+                                        <div class="form-group " > 
+                                            <label class="col-sm-12" id='CPN'>客户品号</label>   
+                                            <label class="col-sm-12" id='itemdesc'>产品描述</label>
+                                            <label class="col-sm-12" id='itemspec'>产品规格</label>
+                                            <label class="col-sm-12" id='MRM'>生产要求</label>
+                                            <label class="col-sm-12" id='QRM'>品质要求</label>                          
+                                            <label class="col-sm-12" id='CRM'>客户要求</label>
+                                            <label class="col-sm-12" id='PRM'>包装要求</label>
+                                        </div>
+                                </div>
+                            </form>
+                           </div>
+                        </div>
+
+                        <!-- 生产失效-->
+                        <div class="col-md-6">                            
+                            <div class="block">
+                                <div class="block-header" style="background-color:rgb(255,100,100)">
+                                    <ul class="block-options">
+                                        <li>
+                                            <button type="button" id='failinfo'><i class="si si-settings"></i></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title">失效记录</h3>
+                                </div>
+                                <div class="block-content block-content-narrow" id='faildata' >
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-2">失效模式</label>
+                                            <div class="col-sm-10">
+                                                <select class="js-select2 form-control" id="FAILMODEL" name="FM" style="width: 100%;" data-placeholder="可多选..." multiple>    
+                                                    {% for FM in failmodels %}
+                                                          <option value={{FM.0}} >{{FM.1}}</option> 
+                                                    {%endfor%}  
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2">失效数量</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" type="text" id="failqty" name="failqty" title="失效数量" value="0">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2" for="example-textarea-input">失效说明</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="faildesc" name="faildesc" rows="6" placeholder="失效详细说明..."></textarea>
+                                            </div>
+                                        </div>  
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END 生产用料信息 -->
+
+                        <!-- 生产用料信息-->
+                        <div class="col-md-6">                            
+                            <div class="block" >
+                                <div class="block-header" style="background-color:rgb(215,200,15)">                                    
+                                    <ul class="block-options">
+                                        <li>
+                                            <button type="button" id='bominfo'><i class="si si-settings"></i></button>
+                                        </li>
+                                        <li>
+                                            <button type="button" id='bomadd' title="增加1行空用料"><i class="si si-plus"></i></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title">用料记录</h3>                                    
+                                </div>
+
+                                <div class="block-content block-content-narrow" id='bomdata'>
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <table class="table table-striped table-hover" id='BOM'>
+                                                        <thead>                                                           
+                                                             <th>品号</th>                                                             
+                                                             <th>批次</th>                                                    
+                                                             <th>不良数量</th>
+                                                             <th>不良原因</th>
+                                                             <th>品名</th>                                                        
+                                                       </thead>
+                                                </table>       
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END 生产用料信息 -->
+
+                        <!-- 参数信息-->
+                        <div class="col-md-6">                            
+                            <div class="block" >
+                                <div class="block-header" style="background-color:rgb(155,255,155)">
+                                    <ul class="block-options">
+                                        <li>
+                                            <button type="button" id='parameterinfo'><i class="si si-settings"></i></button>
+                                        </li>
+                                        <li>
+                                            <button type="button" id='parameteradd' title="增加1行空参数"><i class="si si-plus"></i></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title">参数记录</h3>
+                                </div>
+
+                                <div class="block-content block-content-narrow" id='parameterdata'>
+                                    <form class="form-horizontal">
+                                    
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <table class="js-table-checkable table table-hover" id='PARAMETER'>
+                                                       <thead>
+                                                            <th>产品</th>                                                    
+                                                            <th>参数</th>                                                             
+                                                            <th>数值</th>                                                             
+                                                            <th>规格</th>                                                            
+                                                            <th class="text-center" style="width: 70px;">
+                                                                <label class="css-input css-checkbox css-checkbox-primary remove-margin-t remove-margin-b" title='选中表示参数超出规格'>
+                                                                    <input type="checkbox" id="check-all" name="check-all" ><span></span>
+                                                                </label>
+                                                            </th>
+                                                       </thead>
+                                               </table>       
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END 参数信息 -->
+
+
+                </div>
+                <!-- END 生产移转 -->
+
+	</div>
+</main>
+
+{% endblock %}
